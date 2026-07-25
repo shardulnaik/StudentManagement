@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+
+    <!-- Modular Stylesheets -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/components.css">
+
+    <!-- Vue 3 & Axios CDN Libraries -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app" class="container">
+        <h2>Student Management</h2>
+
+        <!-- Reactive Error Banner -->
+        <div v-if="errorMessage" class="alert-error">
+            {{ errorMessage }}
+        </div>
+
+        <!-- Form Section -->
+        <form @submit.prevent="handleAddStudent" class="student-form">
+            <input v-model="form.name" placeholder="Name" required>
+            <input v-model.number="form.age" type="number" placeholder="Age" required>
+            <input v-model="form.course" placeholder="Course" required>
+            <button type="submit" class="btn-primary">Add Student</button>
+        </form>
+
+        <!-- Table Section -->
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="student in students" :key="student.id">
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.age }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>
+                        <button class="btn-danger" @click="handleDeleteStudent(student.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Load Custom JavaScript Modules -->
+    <script src="api/studentService.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
