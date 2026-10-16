@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - develop
+      - "feature/**"
+      - "fix/**"
   pull_request:
     branches:
       - main
@@ -18,10 +20,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify frontend files
+      - name: Verify frontend structure
+        shell: bash
         run: |
           test -f frontend/index.html
           test -f frontend/app.js
           test -f frontend/api/studentService.js
           test -f frontend/styles/base.css
           test -f frontend/styles/components.css
+
+      - name: Check JavaScript files
+        shell: bash
+        run: |
+          test -s frontend/app.js
+          test -s frontend/api/studentService.js
